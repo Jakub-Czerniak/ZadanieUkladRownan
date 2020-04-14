@@ -11,93 +11,35 @@
  *  i jakie ma glowne cechy.
  */
 class Wektor {
-  
-  public:
 
   double tab[ROZMIAR];
   
-  Wektor()
-  {
-    tab[0]= 0;
-    tab[1]= 0;
-    tab[2]= 0;
-  }
+public:
+
+  Wektor();
  
-  Wektor(double xx,double yy,double zz)
-  {
-    tab[0]= xx;
-    tab[1]= yy;
-    tab[2]= zz;
-  }
+  Wektor(double xx,double yy,double zz);
+
+  const double &operator[] (int index) const;
+
+  double &operator[] (int index);
   
-  const Wektor operator+ (const Wektor & W2) const
-  {
-    Wektor wynik;
-    for (int index = 0 ; index>=ROZMIAR ;index++)
-      {
-	wynik.tab[index]=tab[index]+W2.tab[index];
-      }
-    return wynik;
-  }
+  Wektor operator+ (const Wektor & W2) const;
   
-  const Wektor operator- (const Wektor & W2) const
-  {
-    Wektor wynik;
-    for (int index = 0 ; index>=ROZMIAR ;index++)
-      {
-	wynik.tab[index]=tab[index]-W2.tab[index];
-      }
-    return wynik;
-  }
+  Wektor operator- (const Wektor & W2) const;
 
-    double operator* (const Wektor & W2) const
-  {
-    double wynik=0;
-    for  (int index = 0 ; index>=ROZMIAR ;index++)
-      {
-	wynik+=tab[index]*W2.tab[index];
-      }
-    return wynik;
-  }
-  
-  const Wektor  operator* (double l2) const
-  {
-    Wektor wynik;
-    for (int index = 0 ; index>=ROZMIAR ;index++)
-      {
-	wynik.tab[index]=tab[index]*l2;
-      }
-    return wynik;
-  }
+  double operator* (const Wektor & W2) const;
 
-    const Wektor  operator/ (double l2) const
-  {
-    Wektor wynik;
-    for (int index = 0 ; index>=ROZMIAR ;index++)
-      {
-	wynik.tab[index]=tab[index]/l2;
-      }
-    return wynik;
-  }
+  Wektor  operator* (double l2) const;
 
-  double dlugosc(const Wektor & W2) const
-  {
-    double wynik;
-    wynik=sqrt(W2.tab[0]*W2.tab[0]+W2.tab[1]*W2.tab[1]+W2.tab[2]*W2.tab[2]);
-    return wynik;
-  }
+  Wektor  operator/ (double l2) const;
 
-  bool operator==(const Wektor & W2) const
-  {
-    if(abs(tab[2]-W2.tab[2])<0.00001 && abs(tab[1]-W2.tab[1])<0.00001 && abs(tab[0]-W2.tab[0])<0.00001) 
-    return true;
-  return false;
-  };
+  double dlugosc() const;
 
-  bool operator!=(const Wektor & W2) const
-  {
-    return !(*this == W2);
-  }
+  bool operator==(const Wektor & W2) const;
+
+  bool operator!=(const Wektor & W2) const;
+
 };
 
 

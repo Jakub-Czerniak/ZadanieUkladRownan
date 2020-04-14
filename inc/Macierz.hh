@@ -4,34 +4,45 @@
 #include "rozmiar.h"
 #include "Wektor.hh"
 #include <iostream>
-
+#include <math.h>
 
 /*
  *  Tutaj trzeba opisac klase. Jakie pojecie modeluje ta klasa
  *  i jakie ma glowne cechy.
  */
 class Macierz {
-  public:
-  Wektor tab[ROZMIAR];
-  const Macierz operator +(const Macierz & B)
-  {
-    Wektor wynik;
-    for(int index=0;index>=ROZMIAR;index++)
-      {
-	wynik.tab[index]=tab[indeks]+B.tab[indeks];
-      }
-    return wynik; 
-  }
 
-    const Macierz operator -(const Macierz & B)
-  {
-    Wektor wynik;
-    for(int index=0;index>=ROZMIAR;index++)
-      {
-	wynik.tab[index]=tab[indeks]-B.tab[indeks];
-      }
-    return wynik; 
-  }
+  Wektor tab[ROZMIAR];
+
+public:
+
+  Macierz();
+
+  Macierz(Wektor A, Wektor B, Wektor C);
+  
+  const Wektor  & operator[] (int index) const;
+  
+  Wektor & operator[] (int index);
+
+  const double  & operator() (int index1, int index2) const;
+  
+  double & operator() (int index1, int index2);
+  
+  Macierz operator +(const Macierz & M);
+
+  Macierz operator -(const Macierz & M);
+
+  Macierz operator *(const Macierz & M);
+  
+  Macierz operator *(double mnoznik);
+
+  bool operator== (const Macierz & M) const;
+  
+  bool operator!= (const Macierz & M) const;
+
+  Macierz transponuj() const;
+
+  double wyznacznikSarrus() const;
 };
 
 
