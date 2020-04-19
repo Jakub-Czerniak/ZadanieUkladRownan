@@ -102,6 +102,18 @@ Macierz Macierz::operator *(double mnoznik)
   return wynik;
   }
 
+Macierz Macierz::operator *(const Wektor & Wek)
+{
+  Wektro wynik;
+  Wektor WPom=Wek;
+  
+  for(int i=0;i<ROZMIAR;i++)
+    for(int k=0; k<ROZMIAR;k++)
+      wynik(i,k)=tab[i]*WPom[k];
+    
+  return wynik;
+}
+
 Macierz Macierz::transponuj() const
 {
   Macierz wynik;

@@ -13,8 +13,35 @@ UklRowL::UklRowL(const Macierz &Mac, const Wektor &Wek)
   B=Wek;
 }
 
+Macierz UklRowL::get_A() const
+{
+  Macierz Mac;
+  Mac=A;
+  
+  return Mac;
+}
 
-Wektor UklRowL::Oblicz() const
+Wektor UklRowL::get_B() const
+{
+  Wektor Wek;
+  Wek=B;
+  
+  return Wek;
+}
+
+void UklRowL::set_A(const Macierz AA)
+{
+  A=AA;
+}
+
+void UklRowL::set_B(const Wektor BB)
+{
+  B=BB;
+}
+
+
+
+Wektor UklRowL::Oblicz() const //metoda Cramera
 {
   double Wyz, WyzX, WyzY, WyzZ;
   double X, Y, Z;
@@ -23,27 +50,20 @@ Wektor UklRowL::Oblicz() const
   MacX=A.transponuj();
   MacX[0]=B;
   MacX=MacX.transponuj();
-  cout << MacX;
 
   MacY=A.transponuj();
   MacY[1]=B;
   MacY=MacY.transponuj();
-  cout << MacY;
 
   MacZ=A.transponuj();
   MacZ[2]=B;
   MacZ=MacZ.transponuj();
-  cout << MacZ;
 
 
   Wyz=A.wyznacznikSarrus();
-  cout << Wyz << endl;
   WyzX=MacX.wyznacznikSarrus();
-  cout << WyzX << endl;
   WyzY=MacY.wyznacznikSarrus();
-  cout << WyzY << endl;
   WyzZ=MacZ.wyznacznikSarrus();
-  cout << WyzZ << endl;
   
   X=WyzX/Wyz;
   Y=WyzY/Wyz;
@@ -53,3 +73,40 @@ Wektor UklRowL::Oblicz() const
   
   return wynik;
 }
+
+
+Wektor WBledu(Macierz A, Wektor B, Wektor X)
+{
+  Wektor wynik;
+
+  for(int w=0;w<ROZMIAR;w++)
+    for(int k=0;k<ROZMIAR;k++)
+      wynik[w]=wynik[w]+A(w,k)*X[k];
+
+  for(int w=0;w<ROZMIAR;w++)
+    wynik[w]=wynik[w]-B[w];
+  
+  return wynik;
+}
+
+
+std::istream &operator >> (std::istream &strm, UklRowL &U)
+{
+  Macierz pomA;
+  Wektor pomB;
+
+  strm >> pomA >> pomB;
+  U.set_A(pomA);
+  U.set_B(pomB);
+
+  return strm;
+}
+
+std::ostream& operator << (std::ostream &strm, const UklRowL &U)
+{
+  strm << U.get_A() << U.get_B();
+
+  return strm;
+}
+
+  

@@ -1,23 +1,36 @@
 #include <iostream>
+#include <fstream>
 #include "Wektor.hh"
 #include "Macierz.hh"
 #include "UkladRownanLiniowych.hh"
 
-
-
-
 using namespace std;
+
 
 
 int main()
 {
-  Wektor Raz=Wektor(1,1,1);
-  Wektor Dwa=Wektor(2,-1,2);
-  Wektor Trzy=Wektor(3,12,-5);
-  Macierz MTrzy=Macierz(Raz,Dwa,Wektor(3,2,-1));
-  UklRowL Rozw=UklRowL(MTrzy, Trzy);
+  Macierz A;
+  Wektor B;
+  Wektor Rozw;
+  Wektor WBlad;
+  ifstream plik;
 
-  Trzy=Rozw.Oblicz();
-  cout << Trzy;
-  cout << endl << " Start programu " << endl << endl;
+  plik.open("dane");
+  plik >> A >> B;
+  cout << "Macierz:" << endl;
+  cout << A;
+  cout << "Wektor wyrazow wolnych:" << endl;
+  cout << B;
+  UklRowL Rown(A,B);
+  Rozw=Rown.Oblicz();
+  cout << "Rozwiazanie x = (x1, x2, x3):" << endl;
+  cout << Rozw;
+
+  WBlad=WBledu(A,B,Rozw);
+  cout << "Wektor bledu: Ax-B= " << WBlad;
+  cout << "Dlugosc wektora bledu: ||Ax-B||= " << WBlad.dlugosc();  
+  
+  
+  cout << endl << " Konczenie dzialania programu programu " << endl << endl;
 }
